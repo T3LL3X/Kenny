@@ -70,6 +70,46 @@
       const escolha = Math.random() < 0.5 ? op1 : op2;
       document.getElementById("resultado").innerText = "Kenny escolheu: " + escolha + "!";
     }
-  </script>
 </body>
 </html>
+<script>
+  function decidir() {
+    const op1 = document.getElementById("opcao1").value.trim();
+    const op2 = document.getElementById("opcao2").value.trim();
+    const resultadoDiv = document.getElementById("resultado");
+
+    if (!op1 || !op2) {
+      resultadoDiv.innerText = "Digite duas opções!";
+      return;
+    }
+
+    const respostasEngracadas = [
+      "Escolhe você!",
+      "Tô soninho... quero mimir 😴",
+      "hmmm... os dois!",
+      "Hoje não seiti, tô indecisa 🦈",
+      "Vai no mais legalti!",
+      "Pergunta pra mamãe!",
+      "Pergunta pro papai",
+      "A mamãe que escolhe 🦈",
+      "O papai que escolhe 🦈",
+      "hmmmmmmmmmm não seiti",
+      "Só consigo decidir se ganhar uma banana 🍌",
+      "Banana 🍌",
+      "🍌"
+      
+      
+    ];
+
+    const chanceEngracada = Math.random();
+
+    if (chanceEngracada < 0.2) {
+      // 20% de chance de resposta aleatória
+      const resposta = respostasEngracadas[Math.floor(Math.random() * respostasEngracadas.length)];
+      resultadoDiv.innerText = "Kenny disse: " + resposta;
+    } else {
+      const escolha = Math.random() < 0.5 ? op1 : op2;
+      resultadoDiv.innerText = "Kenny escolheu: " + escolha + "!";
+    }
+  }
+</script>
