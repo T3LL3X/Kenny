@@ -39,11 +39,38 @@
     button:hover {
       background-color: #004d40;
     }
-    .result {
-      font-size: 24px;
-      margin-top: 30px;
+
+    /* POPUP STYLES */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 300px;
+      font-size: 20px;
       color: #004d40;
-      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-content button {
+      margin-top: 20px;
+      background-color: #00796b;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -54,16 +81,24 @@
   <input type="text" id="opcao1" placeholder="Opção 1">
   <input type="text" id="opcao2" placeholder="Opção 2"><br>
   <button onclick="decidir()">Perguntar o Kenny</button>
-  <div class="result" id="resultado"></div>
+
+  <!-- POPUP -->
+  <div id="popup">
+    <div class="popup-content">
+      <div id="respostaPopup"></div>
+      <button onclick="fecharPopup()">OK</button>
+    </div>
+  </div>
 
   <script>
     function decidir() {
       const op1 = document.getElementById("opcao1").value.trim();
       const op2 = document.getElementById("opcao2").value.trim();
-      const resultadoDiv = document.getElementById("resultado");
+      const respostaDiv = document.getElementById("respostaPopup");
 
       if (!op1 || !op2) {
-        resultadoDiv.innerText = "Digite duas opções!";
+        respostaDiv.innerText = "Digite duas opções!";
+        mostrarPopup();
         return;
       }
 
@@ -84,14 +119,26 @@
       ];
 
       const chanceEngracada = Math.random();
+      let resultado;
 
       if (chanceEngracada < 0.2) {
         const resposta = respostasEngracadas[Math.floor(Math.random() * respostasEngracadas.length)];
-        resultadoDiv.innerText = "Kenny disse: " + resposta;
+        resultado = "Kenny disse: " + resposta;
       } else {
         const escolha = Math.random() < 0.5 ? op1 : op2;
-        resultadoDiv.innerText = "Kenny escolheu: " + escolha + "!";
+        resultado = "Kenny escolheu: " + escolha + "!";
       }
+
+      respostaDiv.innerText = resultado;
+      mostrarPopup();
+    }
+
+    function mostrarPopup() {
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function fecharPopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
 </body>
